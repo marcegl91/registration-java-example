@@ -41,6 +41,18 @@ public class User {
     @NotNull
     private LocalDate birthDate;
 
+    private String address;
+
+    private String city;
+
+    private String state;
+
+    private String country;
+
+    private Boolean emailSubscription;
+
+    private Integer numberOfLanguages;
+
     public void setUsername(String username) {
         Preconditions.checkArgument(username != null && !username.isEmpty());
 
