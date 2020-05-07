@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.google.common.base.Preconditions;
 import java.time.LocalDate;
-import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import lombok.Data;
 import wolox.examples.services.PasswordEncoderService;
 
 /**
@@ -21,6 +21,7 @@ import wolox.examples.services.PasswordEncoderService;
 
 @Entity
 @Table(name = "users")
+@Data
 public class User {
 
     @Id
@@ -40,57 +41,10 @@ public class User {
     @NotNull
     private LocalDate birthDate;
 
-    public User() {
-    }
-
-    public User(long id, String username, String name, LocalDate birthDate, String password) {
-        this.id = id;
-        setUsername(username);
-        setName(name);
-        setBirthDate(birthDate);
-        setPassword(password);
-    }
-
-    public User(String username, String name, LocalDate birthDate, String password) {
-        setUsername(username);
-        setName(name);
-        setBirthDate(birthDate);
-        setPassword(password);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        User user = (User) o;
-        return username.equals(user.username);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(username);
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
     public void setUsername(String username) {
         Preconditions.checkArgument(username != null && !username.isEmpty());
 
         this.username = username;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setName(String name) {
@@ -99,18 +53,10 @@ public class User {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         Preconditions.checkArgument(password != null && !password.isEmpty());
 
         this.password = PasswordEncoderService.encode(password);
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
     }
 
     public void setBirthDate(LocalDate birthDate) {
