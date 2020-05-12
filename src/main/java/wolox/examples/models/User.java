@@ -2,6 +2,8 @@ package wolox.examples.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.google.common.base.Preconditions;
 import java.time.LocalDate;
 import javax.persistence.Entity;
@@ -22,6 +24,7 @@ import wolox.examples.services.PasswordEncoderService;
 @Entity
 @Table(name = "users")
 @Data
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class User {
 
     @Id
@@ -29,7 +32,7 @@ public class User {
     private long id;
 
     @NotNull
-    private String username;
+    private String email;
 
     @NotNull
     private String name;
@@ -53,10 +56,10 @@ public class User {
 
     private Integer numberOfLanguages;
 
-    public void setUsername(String username) {
-        Preconditions.checkArgument(username != null && !username.isEmpty());
+    public void setEmail(String email) {
+        Preconditions.checkArgument(email != null && !email.isEmpty());
 
-        this.username = username;
+        this.email = email;
     }
 
     public void setName(String name) {
